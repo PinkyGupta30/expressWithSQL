@@ -1,13 +1,14 @@
 const express = require("express");
 const db = require("./utils/dbConnections");
 const studentRoutes = require("./routes/studentRoutes");
+const studentModel = require('./models/students')
 const app = express();
 
 app.use(express.json());
 
-// app.get("/", (req, res) => {
-//     res.send("Hello World");
-// });
+app.get("/", (req, res) => {
+    res.send("Hello World");
+});
 
 // app.use("/users", userRoutes);
 
@@ -16,7 +17,15 @@ app.use(express.json());
 
 app.use("/students", studentRoutes);
 
-
-app.listen(3000, () => {
+db.sync({force:true}).then(()=>
+{
+    app.listen(3000, () => {
     console.log("Server is running on port 3000");
-});
+})
+
+}).catch((err)=>
+{
+    console.log(err);
+})
+
+
