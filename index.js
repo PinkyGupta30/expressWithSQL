@@ -1,5 +1,6 @@
 const express = require("express");
-const studentRoutes = require("./routes/studentRoutes");
+const db = require("./utils/dbConnections");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -9,7 +10,10 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-app.use("/students", studentRoutes);
+app.use("/users", userRoutes);
+
+const busRoutes = require("./routes/busRoutes");
+app.use("/buses", busRoutes);
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
